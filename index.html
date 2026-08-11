@@ -4,13 +4,163 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Library Management System - Manage books, members, and borrowing records">
     <title>Library Management System</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
+    <header class="header">
+        <div class="container">
+            <h1 class="logo">Library Management System</h1>
+            <nav class="nav">
+                <a href="#home" class="nav-link active">Home</a>
+                <a href="#books" class="nav-link">Books</a>
+                <a href="#members" class="nav-link">Members</a>
+                <a href="#about" class="nav-link">About</a>
+            </nav>
+        </div>
+    </header>
 
-    <h1>Library Management System</h1>
+    <main class="main">
+        <!-- Hero Section -->
+        <section id="home" class="hero">
+            <div class="container">
+                <h2 class="hero-title">Welcome to Your Digital Library</h2>
+                <p class="hero-subtitle">Manage your book collection, track borrowing, and organize members efficiently
+                </p>
+                <div class="hero-stats">
+                    <div class="stat-card">
+                        <span class="stat-number" id="totalBooks">0</span>
+                        <span class="stat-label">Total Books</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number" id="availableBooks">0</span>
+                        <span class="stat-label">Available</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number" id="totalMembers">0</span>
+                        <span class="stat-label">Members</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Books Section -->
+        <section id="books" class="section">
+            <div class="container">
+                <h2 class="section-title">Book Collection</h2>
+
+                <div class="controls">
+                    <button class="btn btn-primary" id="addBookBtn">+ Add New Book</button>
+                    <input type="text" id="searchInput" class="search-input" placeholder="Search books...">
+                </div>
+
+                <!-- Add Book Form -->
+                <div id="bookForm" class="form-container hidden">
+                    <h3>Add New Book</h3>
+                    <form id="newBookForm">
+                        <input type="text" id="bookTitle" placeholder="Book Title" required>
+                        <input type="text" id="bookAuthor" placeholder="Author" required>
+                        <input type="text" id="bookISBN" placeholder="ISBN" required>
+                        <select id="bookCategory" required>
+                            <option value="">Select Category</option>
+                            <option value="Fiction">Fiction</option>
+                            <option value="Non-Fiction">Non-Fiction</option>
+                            <option value="Science">Science</option>
+                            <option value="Technology">Technology</option>
+                            <option value="History">History</option>
+                        </select>
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-success">Save Book</button>
+                            <button type="button" class="btn btn-secondary" id="cancelBookBtn">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div id="booksGrid" class="books-grid">
+                    <!-- Books will be dynamically inserted here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Members Section -->
+        <section id="members" class="section">
+            <div class="container">
+                <h2 class="section-title">Library Members</h2>
+
+                <div class="controls">
+                    <button class="btn btn-primary" id="addMemberBtn">+ Add New Member</button>
+                </div>
+
+                <!-- Add Member Form -->
+                <div id="memberForm" class="form-container hidden">
+                    <h3>Register New Member</h3>
+                    <form id="newMemberForm">
+                        <input type="text" id="memberName" placeholder="Full Name" required>
+                        <input type="email" id="memberEmail" placeholder="Email Address" required>
+                        <input type="tel" id="memberPhone" placeholder="Phone Number" required>
+                        <select id="memberType" required>
+                            <option value="">Select Membership Type</option>
+                            <option value="Student">Student</option>
+                            <option value="Faculty">Faculty</option>
+                            <option value="Public">Public</option>
+                        </select>
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-success">Register Member</button>
+                            <button type="button" class="btn btn-secondary" id="cancelMemberBtn">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div id="membersTable" class="table-container">
+                    <table class="members-table">
+                        <thead>
+                            <tr>
+                                <th>Member ID</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Type</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="membersTableBody">
+                            <!-- Members will be dynamically inserted here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="section">
+            <div class="container">
+                <h2 class="section-title">About This System</h2>
+                <div class="about-content">
+                    <p>This Library Management System is a modern, responsive web application designed to streamline
+                        library operations. Built with vanilla HTML, CSS, and JavaScript, it demonstrates clean code
+                        practices and efficient data management.</p>
+                    <h3>Key Features</h3>
+                    <ul class="features-list">
+                        <li>Comprehensive book catalog management</li>
+                        <li>Member registration and tracking</li>
+                        <li>Real-time search functionality</li>
+                        <li>Dashboard analytics and statistics</li>
+                        <li>Local storage for data persistence</li>
+                        <li>Fully responsive design</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 Library Management System. Built By Eeshan Vaghjiani.</p>
+            <p>IS PROJECT 2026</p>
+        </div>
+    </footer>
 
     <script src="script.js"></script>
 </body>
