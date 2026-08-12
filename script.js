@@ -2,8 +2,28 @@ console.log('Library Management System initialized');
 
 class LibraryManager {
     constructor() {
-        this.books = [];
-        this.members = [];
+        this.books = this.loadFromStorage('books') || [];
+        this.members = this.loadFromStorage('members') || [];
+        this.loadSampleData();
+    }
+
+    // Local Storage Operations
+    loadFromStorage(key) {
+        try {
+            const data = localStorage.getItem(key);
+            return data ? JSON.parse(data) : null;
+        } catch (error) {
+            console.error(`Error loading ${key} from storage:`, error);
+            return null;
+        }
+    }
+
+    saveToStorage(key, data) {
+        try {
+            localStorage.setItem(key, JSON.stringify(data));
+        } catch (error) {
+            console.error(`Error saving ${key} to storage:`, error);
+        }
     }
 
     generateId() {
@@ -51,6 +71,8 @@ class LibraryManager {
                     status: 'available'
                 }
             ];
+
+            this.saveToStorage('books', this.books);
         }
 
         if (this.members.length === 0) {
@@ -72,6 +94,8 @@ class LibraryManager {
                     status: 'Active'
                 }
             ];
+
+            this.saveToStorage('members', this.members);
         }
     }
 }
