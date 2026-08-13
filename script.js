@@ -133,6 +133,11 @@ class LibraryManager {
         e.preventDefault();
         this.addMember();
     });
+
+    // Search events
+    document.getElementById('bookSearch').addEventListener('input', (e) => {
+    this.searchBooks(e.target.value);
+    });
 }
 
     toggleForm(formId) {
@@ -333,6 +338,35 @@ class LibraryManager {
             </div>
         `;
     }
+    // Search Functionality
+    searchBooks(query) {
+    const searchTerm = query.toLowerCase().trim();
+
+    const filteredBooks = this.books.filter(book =>
+        book.title.toLowerCase().includes(searchTerm) ||
+        book.author.toLowerCase().includes(searchTerm) ||
+        book.category.toLowerCase().includes(searchTerm) ||
+        book.isbn.toLowerCase().includes(searchTerm)
+    );
+
+    this.renderFilteredBooks(filteredBooks);
+}
+renderFilteredBooks(books) {
+    const booksGrid = document.getElementById('booksGrid');
+
+    if (books.length === 0) {
+        booksGrid.innerHTML = `
+            <p style="grid-column: 1/-1; text-align: center;">
+                No books found.
+            </p>
+        `;
+        return;
+    }
+
+    booksGrid.innerHTML = books
+        .map(book => this.createBookCard(book))
+        .join('');
+}
 }
 
 const library = new LibraryManager();
