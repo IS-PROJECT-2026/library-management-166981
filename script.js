@@ -169,6 +169,38 @@ class LibraryManager {
 
         alert('Book added successfully!');
     }
+    // Member Management
+    addMember() {
+    const name = document.getElementById('memberName').value.trim();
+    const email = document.getElementById('memberEmail').value.trim();
+    const phone = document.getElementById('memberPhone').value.trim();
+    const type = document.getElementById('memberType').value;
+
+    if (!name || !email || !phone || !type) {
+        alert('Please fill in all fields');
+        return;
+    }
+
+    const newMember = {
+        id: this.generateMemberId(),
+        name,
+        email,
+        phone,
+        type,
+        status: 'Active'
+    };
+
+    this.members.push(newMember);
+
+    this.saveToStorage('members', this.members);
+
+    this.renderMembers();
+
+    document.getElementById('newMemberForm').reset();
+    this.toggleForm('memberForm');
+
+    alert('Member registered successfully!');
+}
 
     deleteBook(bookId) {
         if (confirm('Are you sure you want to delete this book?')) {
