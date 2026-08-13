@@ -101,22 +101,38 @@ class LibraryManager {
         }
     }
 
-    // Book Form Event Listeners
+    // Book and Member Form Event Listeners
     setupEventListeners() {
-        document.getElementById('addBookBtn').addEventListener('click', () => {
-            this.toggleForm('bookForm');
-        });
+    // Book events
+    document.getElementById('addBookBtn').addEventListener('click', () => {
+        this.toggleForm('bookForm');
+    });
 
-        document.getElementById('cancelBookBtn').addEventListener('click', () => {
-            this.toggleForm('bookForm');
-            document.getElementById('newBookForm').reset();
-        });
+    document.getElementById('cancelBookBtn').addEventListener('click', () => {
+        this.toggleForm('bookForm');
+        document.getElementById('newBookForm').reset();
+    });
 
-        document.getElementById('newBookForm').addEventListener('submit', (e) => {
-            e.preventDefault();
-            this.addBook();
-        });
-    }
+    document.getElementById('newBookForm').addEventListener('submit', (e) => {
+        e.preventDefault();
+        this.addBook();
+    });
+
+    // Member events
+    document.getElementById('addMemberBtn').addEventListener('click', () => {
+        this.toggleForm('memberForm');
+    });
+
+    document.getElementById('cancelMemberBtn').addEventListener('click', () => {
+        this.toggleForm('memberForm');
+        document.getElementById('newMemberForm').reset();
+    });
+
+    document.getElementById('newMemberForm').addEventListener('submit', (e) => {
+        e.preventDefault();
+        this.addMember();
+    });
+}
 
     toggleForm(formId) {
         const form = document.getElementById(formId);
