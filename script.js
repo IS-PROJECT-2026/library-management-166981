@@ -6,8 +6,10 @@ class LibraryManager {
     this.members = this.loadFromStorage('members') || [];
     this.loadSampleData();
     this.setupEventListeners();
+    this.setupNavigation();
     this.renderBooks();
     this.renderMembers();
+    this.updateStatistics();
 }
 
     // Local Storage Operations
@@ -140,6 +142,22 @@ class LibraryManager {
     });
 }
 
+    setupNavigation() {
+        const navLinks = document.querySelectorAll('.nav-link');
+        
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                
+                const targetId = link.getAttribute('href');
+                
+                document.querySelector(targetId)?.scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    }
+
     toggleForm(formId) {
         const form = document.getElementById(formId);
         form.classList.toggle('hidden');
@@ -169,6 +187,7 @@ class LibraryManager {
         this.books.push(newBook);
         this.saveToStorage('books', this.books);
         this.renderBooks();
+        this.updateStatistics();
 
         document.getElementById('newBookForm').reset();
         this.toggleForm('bookForm');
@@ -201,6 +220,7 @@ class LibraryManager {
     this.saveToStorage('members', this.members);
 
     this.renderMembers();
+    this.updateStatistics();
 
     document.getElementById('newMemberForm').reset();
     this.toggleForm('memberForm');
@@ -215,6 +235,7 @@ class LibraryManager {
             this.books = this.books.filter(book => book.id !== bookId);
             this.saveToStorage('books', this.books);
             this.renderBooks();
+            this.updateStatistics();
         }
     }
     // Delete Members
@@ -226,6 +247,7 @@ class LibraryManager {
 
         this.saveToStorage('members', this.members);
         this.renderMembers();
+        this.updateStatistics();
     }
 }
 
@@ -240,6 +262,7 @@ class LibraryManager {
 
             this.saveToStorage('books', this.books);
             this.renderBooks();
+            this.updateStatistics();
         }
     }
 
@@ -366,6 +389,20 @@ renderFilteredBooks(books) {
         .map(book => this.createBookCard(book))
         .join('');
 }
+
+    updateStatistics() {
+        const totalBooks = this.books.length;
+        
+        const availableBooks = this.books.filter(
+            book => book.status === 'available'
+        ).length;
+        
+        const totalMembers = this.members.length;
+        
+        document.getElementById('totalBooks').textContent = totalBooks;
+        document.getElementById('availableBooks').textContent = availableBooks;
+        document.getElementById('totalMembers').textContent = totalMembers;
+    }
 }
 
 const library = new LibraryManager();
