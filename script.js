@@ -204,7 +204,7 @@ class LibraryManager {
 }
 
 
-
+    // Delete Books
     deleteBook(bookId) {
         if (confirm('Are you sure you want to delete this book?')) {
             this.books = this.books.filter(book => book.id !== bookId);
@@ -212,6 +212,17 @@ class LibraryManager {
             this.renderBooks();
         }
     }
+    // Delete Members
+    deleteMember(memberId) {
+    if (confirm('Are you sure you want to delete this member?')) {
+        this.members = this.members.filter(
+            member => member.id !== memberId
+        );
+
+        this.saveToStorage('members', this.members);
+        this.renderMembers();
+    }
+}
 
     toggleBookStatus(bookId) {
         const book = this.books.find(b => b.id === bookId);
