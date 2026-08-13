@@ -135,7 +135,7 @@ class LibraryManager {
     });
 
     // Search events
-    document.getElementById('bookSearch').addEventListener('input', (e) => {
+    document.getElementById('searchInput').addEventListener('input', (e) => {
     this.searchBooks(e.target.value);
     });
 }
