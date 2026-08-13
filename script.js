@@ -2,12 +2,13 @@ console.log('Library Management System initialized');
 
 class LibraryManager {
     constructor() {
-        this.books = this.loadFromStorage('books') || [];
-        this.members = this.loadFromStorage('members') || [];
-        this.loadSampleData();
-        this.setupEventListeners();
-        this.renderBooks();
-    }
+    this.books = this.loadFromStorage('books') || [];
+    this.members = this.loadFromStorage('members') || [];
+    this.loadSampleData();
+    this.setupEventListeners();
+    this.renderBooks();
+    this.renderMembers();
+}
 
     // Local Storage Operations
     loadFromStorage(key) {
@@ -101,22 +102,38 @@ class LibraryManager {
         }
     }
 
-    // Book Form Event Listeners
+    // Book and Member Form Event Listeners
     setupEventListeners() {
-        document.getElementById('addBookBtn').addEventListener('click', () => {
-            this.toggleForm('bookForm');
-        });
+    // Book events
+    document.getElementById('addBookBtn').addEventListener('click', () => {
+        this.toggleForm('bookForm');
+    });
 
-        document.getElementById('cancelBookBtn').addEventListener('click', () => {
-            this.toggleForm('bookForm');
-            document.getElementById('newBookForm').reset();
-        });
+    document.getElementById('cancelBookBtn').addEventListener('click', () => {
+        this.toggleForm('bookForm');
+        document.getElementById('newBookForm').reset();
+    });
 
-        document.getElementById('newBookForm').addEventListener('submit', (e) => {
-            e.preventDefault();
-            this.addBook();
-        });
-    }
+    document.getElementById('newBookForm').addEventListener('submit', (e) => {
+        e.preventDefault();
+        this.addBook();
+    });
+
+    // Member events
+    document.getElementById('addMemberBtn').addEventListener('click', () => {
+        this.toggleForm('memberForm');
+    });
+
+    document.getElementById('cancelMemberBtn').addEventListener('click', () => {
+        this.toggleForm('memberForm');
+        document.getElementById('newMemberForm').reset();
+    });
+
+    document.getElementById('newMemberForm').addEventListener('submit', (e) => {
+        e.preventDefault();
+        this.addMember();
+    });
+}
 
     toggleForm(formId) {
         const form = document.getElementById(formId);
@@ -153,7 +170,41 @@ class LibraryManager {
 
         alert('Book added successfully!');
     }
+    // Member Management
+    addMember() {
+    const name = document.getElementById('memberName').value.trim();
+    const email = document.getElementById('memberEmail').value.trim();
+    const phone = document.getElementById('memberPhone').value.trim();
+    const type = document.getElementById('memberType').value;
 
+    if (!name || !email || !phone || !type) {
+        alert('Please fill in all fields');
+        return;
+    }
+
+    const newMember = {
+        id: this.generateMemberId(),
+        name,
+        email,
+        phone,
+        type,
+        status: 'Active'
+    };
+
+    this.members.push(newMember);
+
+    this.saveToStorage('members', this.members);
+
+    this.renderMembers();
+
+    document.getElementById('newMemberForm').reset();
+    this.toggleForm('memberForm');
+
+    alert('Member registered successfully!');
+}
+
+
+    // Delete Books
     deleteBook(bookId) {
         if (confirm('Are you sure you want to delete this book?')) {
             this.books = this.books.filter(book => book.id !== bookId);
@@ -161,6 +212,17 @@ class LibraryManager {
             this.renderBooks();
         }
     }
+    // Delete Members
+    deleteMember(memberId) {
+    if (confirm('Are you sure you want to delete this member?')) {
+        this.members = this.members.filter(
+            member => member.id !== memberId
+        );
+
+        this.saveToStorage('members', this.members);
+        this.renderMembers();
+    }
+}
 
     toggleBookStatus(bookId) {
         const book = this.books.find(b => b.id === bookId);
@@ -190,6 +252,43 @@ class LibraryManager {
             .map(book => this.createBookCard(book))
             .join('');
     }
+    // Member Display
+    renderMembers() {
+    const membersTable = document.getElementById('membersTableBody');
+
+    if (this.members.length === 0) {
+        membersTable.innerHTML = `
+            <tr>
+                <td colspan="6" style="text-align: center;">
+                    No members registered yet.
+                </td>
+            </tr>
+        `;
+        return;
+    }
+
+    membersTable.innerHTML = this.members.map(member => `
+        <tr>
+            <td>${member.id}</td>
+            <td>${member.name}</td>
+            <td>${member.email}</td>
+            <td>${member.phone}</td>
+            <td>${member.type}</td>
+            <td>
+                <span class="badge badge-available">
+                    ${member.status}
+                </span>
+            </td>
+            <td>
+                <button
+                    class="btn btn-danger"
+                    onclick="library.deleteMember('${member.id}')">
+                    Delete
+                </button>
+            </td>
+        </tr>
+    `).join('');
+}
 
     createBookCard(book) {
         const statusClass =
