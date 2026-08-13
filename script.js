@@ -277,7 +277,6 @@ class LibraryManager {
             <td>${member.id}</td>
             <td>${member.name}</td>
             <td>${member.email}</td>
-            <td>${member.phone}</td>
             <td>${member.type}</td>
             <td>
                 <span class="badge badge-available">
