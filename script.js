@@ -2,12 +2,13 @@ console.log('Library Management System initialized');
 
 class LibraryManager {
     constructor() {
-        this.books = this.loadFromStorage('books') || [];
-        this.members = this.loadFromStorage('members') || [];
-        this.loadSampleData();
-        this.setupEventListeners();
-        this.renderBooks();
-    }
+    this.books = this.loadFromStorage('books') || [];
+    this.members = this.loadFromStorage('members') || [];
+    this.loadSampleData();
+    this.setupEventListeners();
+    this.renderBooks();
+    this.renderMembers();
+}
 
     // Local Storage Operations
     loadFromStorage(key) {
@@ -202,6 +203,8 @@ class LibraryManager {
     alert('Member registered successfully!');
 }
 
+
+
     deleteBook(bookId) {
         if (confirm('Are you sure you want to delete this book?')) {
             this.books = this.books.filter(book => book.id !== bookId);
@@ -238,6 +241,43 @@ class LibraryManager {
             .map(book => this.createBookCard(book))
             .join('');
     }
+    // Member Display
+    renderMembers() {
+    const membersTable = document.getElementById('membersTableBody');
+
+    if (this.members.length === 0) {
+        membersTable.innerHTML = `
+            <tr>
+                <td colspan="6" style="text-align: center;">
+                    No members registered yet.
+                </td>
+            </tr>
+        `;
+        return;
+    }
+
+    membersTable.innerHTML = this.members.map(member => `
+        <tr>
+            <td>${member.id}</td>
+            <td>${member.name}</td>
+            <td>${member.email}</td>
+            <td>${member.phone}</td>
+            <td>${member.type}</td>
+            <td>
+                <span class="badge badge-available">
+                    ${member.status}
+                </span>
+            </td>
+            <td>
+                <button
+                    class="btn btn-danger"
+                    onclick="library.deleteMember('${member.id}')">
+                    Delete
+                </button>
+            </td>
+        </tr>
+    `).join('');
+}
 
     createBookCard(book) {
         const statusClass =
