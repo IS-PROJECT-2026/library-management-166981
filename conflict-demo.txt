@@ -1,0 +1,2 @@
+Conflict demonstration created by branch A.
+This file was added independently.
