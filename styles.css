@@ -395,11 +395,9 @@ body {
 
 /*FOOTER*/
 .footer {
-    background: var(--text-primary);
-    color: white;
-    padding: 2.5rem 0;
-    text-align: center;
-    margin-top: 4rem;
+    padding: 2rem 0;
+    text-align: right;
+    font-size: 1rem;
 }
 
 .footer p {
