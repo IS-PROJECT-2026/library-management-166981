@@ -114,38 +114,16 @@ Demonstrate your workflow mechanics by embedding your screenshots below.
 ### C. Branching Architecture
 *Provide a screenshot showing your local or remote Git branch list, highlighting your use of conventional, issue-linked naming patterns (e.g., `feat/`, `fix/`, `style/`).*
 
-<img width="1569" height="505" alt="branch rulesets" src="https://github.com/user-attachments/assets/f60593e5-c82b-4dc0-b9d9-70198cfe2ecc" />
+<img width="1331" height="766" alt="No Name! (972)" src="https://github.com/user-attachments/assets/df153b2a-4741-4a04-9205-15e47e09d049" />
 
 
-* **Caption:** Branch protection rules and branching structure demonstrating issue-linked feature branches using conventional naming patterns
-
+* **Caption:** list of development branches
 ### D. Pull Requests & Traceability
 *Provide a screenshot of a completed or open Pull Request (PR) on GitHub that clearly shows it is linked to a related development issue.*
 
-<table>
-<tr>
-<td width="50%">
-
-**Before**
-
-<img width="535" height="658" alt="issue-before" src="https://github.com/user-attachments/assets/01371cf8-29ce-4a9a-b627-1555cd3a4582" />
-
-
-*Open issues awaiting development with proper labels*
-
-</td>
-<td width="50%">
-
-**After**
-
-<img width="415" height="594" alt="issues-final" src="https://github.com/user-attachments/assets/570d3131-cfc1-474e-b4c7-fd7984d908ae" />
-
+<img width="1246" height="889" alt="No Name! (973)" src="https://github.com/user-attachments/assets/8849efd2-9932-4af4-806d-cf78437c821b" />
 
 *Closed issues with linked PRs and traceability*
-
-</td>
-</tr>
-</table>
 
 ---
 
